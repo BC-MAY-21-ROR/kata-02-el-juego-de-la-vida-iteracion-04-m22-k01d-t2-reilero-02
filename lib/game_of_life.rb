@@ -1,26 +1,47 @@
 class Game
     #live = "*"
     #dead = "."
-
-    def initialize(width, height)
+    def initialize(width=0, height=0)
         @width = width
         @height = height
         @matrix = []
     end
 
+    def start
+     input_widh_height
+     create_matrix
+     print_matrix
+
+     2.times do |_|
+        next_generation
+        print_matrix
+        sleep(1)
+        puts
+     end
+    end
+
+    def input_widh_height
+      puts "Colocar el ancho"
+      @width = gets.chomp.to_i
+      puts "Colocar el alto"
+      @height = gets.chomp.to_i
+    end
+    
     def create_matrix
         @matrix = Array.new(@width){Array.new(@height){[true, false].sample}}
     end
 
-    # def initial_cells
-    #   middle_row = @width/2
-    #   middle_col = @height/2
-    #   @matrix[middle_row][middle_col] = true
-    #   @matrix[middle_row-1][middle_col] = true
-    #   @matrix[middle_row+1][middle_col] = true
-    #   @matrix[middle_row][middle_col-1] = true
-    #   @matrix[middle_row-1][middle_col+1] = true
-    # end
+    def initial_cells
+      middle_row = @width/2
+      middle_col = @height/2
+      @matrix[middle_row][middle_col] = true
+      @matrix[middle_row-1][middle_col] = true
+      @matrix[middle_row+1][middle_col] = true
+      @matrix[middle_row][middle_col-1] = true
+      @matrix[middle_row-1][middle_col+1] = true
+    end
+
+
 
     # first generation
     def next_generation
@@ -32,7 +53,6 @@ class Game
           next if i == 0 || j == 0 || i == height_real || j == width_real # Evitar iterar en las orillas de la matrix.
             alive_neighbours_count = alive_neighbours_count(snapshot, i, j)
             game_rules(alive_neighbours_count,i,j)
-          end
         end
       end
     end
@@ -76,13 +96,12 @@ class Game
       [row-1,row,row+1].each do |i|
         [col-1,col,col+1].each do |j|
           next if i == row && j == col
-            if snapshot[i][j] == true
-              count += 1
-            end
+          if snapshot[i][j] == true
+            count += 1
           end
         end
-        count
       end
+      count
     end
     
 
@@ -112,8 +131,5 @@ class Game
 
 end
 
-#puts "Introducir ancho del tablero"
-#width = gets.chomp.to_i
-#puts "Introducir alto del tablero"
-#height = gets.chomp.to_i
-
+new_game = Game.new
+new_game.start
