@@ -10,18 +10,17 @@ class Game
 
     def create_matrix
         @matrix = Array.new(@width){Array.new(@height){[true, false].sample}}
-        initial_cells
     end
 
-    def initial_cells
-      middle_row = @width/2
-      middle_col = @height/2
-      @matrix[middle_row][middle_col] = true
-      @matrix[middle_row-1][middle_col] = true
-      @matrix[middle_row+1][middle_col] = true
-      @matrix[middle_row][middle_col-1] = true
-      @matrix[middle_row-1][middle_col+1] = true
-    end
+    # def initial_cells
+    #   middle_row = @width/2
+    #   middle_col = @height/2
+    #   @matrix[middle_row][middle_col] = true
+    #   @matrix[middle_row-1][middle_col] = true
+    #   @matrix[middle_row+1][middle_col] = true
+    #   @matrix[middle_row][middle_col-1] = true
+    #   @matrix[middle_row-1][middle_col+1] = true
+    # end
 
     # first generation
     def next_generation
@@ -31,13 +30,18 @@ class Game
       @matrix.each_with_index do |row, i|
         row.each_with_index do |cell, j|
           next if i == 0 || j == 0 || i == height_real || j == width_real # Evitar iterar en las orillas de la matrix.
-          alive_neighbours_count = alive_neighbours_count(snapshot, i, j)
-          first_rule(alive_neighbours_count, i, j)
-          second_rule(alive_neighbours_count, i, j)
-          thrid_rule(alive_neighbours_count, i, j)
-          fourth_rule(alive_neighbours_count, i, j)
+            alive_neighbours_count = alive_neighbours_count(snapshot, i, j)
+            game_rules(alive_neighbours_count,i,j)
+          end
         end
       end
+    end
+
+    def game_rules(alive_neighbours_count,i,j)
+      first_rule(alive_neighbours_count, i, j)
+      second_rule(alive_neighbours_count, i, j)
+      thrid_rule(alive_neighbours_count, i, j)
+      fourth_rule(alive_neighbours_count, i, j)
     end
 
     def first_rule(alive_neighbours_count, row, col)
@@ -72,13 +76,15 @@ class Game
       [row-1,row,row+1].each do |i|
         [col-1,col,col+1].each do |j|
           next if i == row && j == col
-          if snapshot[i][j] == true
-            count += 1
+            if snapshot[i][j] == true
+              count += 1
+            end
           end
         end
+        count
       end
-      count
     end
+    
 
     def print_matrix
       @matrix.each do |row|
@@ -106,18 +112,8 @@ class Game
 
 end
 
-puts "Introducir ancho del tablero"
-width = gets.chomp.to_i
-puts "Introducir alto del tablero"
-height = gets.chomp.to_i
+#puts "Introducir ancho del tablero"
+#width = gets.chomp.to_i
+#puts "Introducir alto del tablero"
+#height = gets.chomp.to_i
 
-tablero = Game.new(width,height)
-tablero.create_matrix
-tablero.print_matrix
-
-50.times do |_|
-  tablero.next_generation
-  tablero.print_matrix
-  sleep(1)
-  puts
-end
