@@ -41,6 +41,7 @@ GEM
       rainbow (>= 2.0, < 4.0)
     repo-small-badge (0.2.7)
       victor (~> 0.2.8)
+    rexml (3.2.5)
     rspec (3.11.0)
       rspec-core (~> 3.11.0)
       rspec-expectations (~> 3.11.0)
@@ -86,13 +87,15 @@ GEM
       equalizer (~> 0.0, >= 0.0.9)
 
 PLATFORMS
+  x64-mingw-ucrt
   x86_64-linux
 
 DEPENDENCIES
   rake
+  rexml
   rspec (~> 3.4)
   rubycritic
   rubycritic-small-badge
 
 BUNDLED WITH
-   2.3.3
+   2.3.7
