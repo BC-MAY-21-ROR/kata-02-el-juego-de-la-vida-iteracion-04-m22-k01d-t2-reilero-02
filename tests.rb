@@ -17,29 +17,20 @@ describe Game do
     #     end
     # end
 
-    describe Game do
-        describe '#input_width_height' do
-          before do
-            io_obj = integer
-            expect(subject)
-              .to receive(:gets)
-              .and_return(io_obj)
-              .twice
-            expect(io_obj)
-              .to receive(:to_i)
-              .and_return(:width)
-            expect(io_obj)
-              .to receive(:to_i)
-              .and_return(:height)
-          end
-      
-          it 'sets @type and @quantity according to user\'s input' do
-            subject.choose
-      
-            expect(subject.instance_variable_get(:@width)).to eq :width
-            expect(subject.instance_variable_get(:@height)).to eq :height
-          end
-        end
-      end
+    describe '.input_width' do
+        it 'should return width' do
+             matriz = Game.new(5,5)
+             width=matriz.input_width
+             expect(width).to eq(0)
+         end
+     end
 
+     describe '.input_height' do
+      it 'should return height' do
+           matriz = Game.new(5,5)
+           height=matriz.input_height
+           expect(height).to eq(0)
+       end
+   end
+      
 end

@@ -8,7 +8,8 @@ class Game
     end
 
     def start
-     input_widh_height
+     input_width
+     input_height
      create_matrix
      print_matrix
 
@@ -20,11 +21,16 @@ class Game
      end
     end
 
-    def input_widh_height
+    def input_width
       puts "Colocar el ancho"
       @width = gets.chomp.to_i
+      @width
+    end
+
+    def input_height
       puts "Colocar el alto"
       @height = gets.chomp.to_i
+      @height
     end
     
     def create_matrix
