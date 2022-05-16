@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class Cell
-  def initialize()
+  def initialize
     @is_alive = false
   end
 
@@ -10,32 +12,23 @@ class Cell
     fourth_rule(alive_neighbours)
   end
 
-    def first_rule(alive_neighbours_count)
-      if alive_neighbours_count < 2
-        kill
-      end
-    end
+  def first_rule(alive_neighbours_count)
+    kill if alive_neighbours_count < 2
+  end
 
-    def second_rule(alive_neighbours_count)
-      if alive_neighbours_count > 3
-        kill
-      end
-    end
+  def second_rule(alive_neighbours_count)
+    kill if alive_neighbours_count > 3
+  end
 
-    def third_rule(alive_neighbours_count)
-      if @is_alive == false
-        return
-      end
-      if alive_neighbours_count == 2 || alive_neighbours_count == 3
-        vivify
-      end
-    end
+  def third_rule(alive_neighbours_count)
+    return if @is_alive == false
 
-    def fourth_rule(alive_neighbours_count)
-      if alive_neighbours_count == 3
-        vivify
-      end
-    end
+    vivify if [2, 3].include?(alive_neighbours_count)
+  end
+
+  def fourth_rule(alive_neighbours_count)
+    vivify if alive_neighbours_count == 3
+  end
 
   def alive?
     @is_alive
@@ -49,7 +42,11 @@ class Cell
     @is_alive = false
   end
 
-  def vivify 
+  def vivify
     @is_alive = true
+  end
+
+  def copy
+    Cell.new(@is_alive)
   end
 end
