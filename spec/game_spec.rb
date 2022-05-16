@@ -9,14 +9,6 @@ describe Game do
     end
   end
 
-  # describe '.alive_neighbours_count' do
-  #     it 'should return count of neighbours' do
-  #         matriz = Game.new(5,5)
-  #         count=matriz.alive_neighbours_count(matriz.create_matrix,5,5)
-  #         expect(count).to eq(count>=0||count<=8)
-  #     end
-  # end
-
   describe '.input_width' do
     it 'should return width' do
       matriz = Game.new(5, 5)

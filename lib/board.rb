@@ -5,7 +5,9 @@ X = '.'
 O = '*'
 
 class Board
-  def initialize(rows = 10, cols = 10, initial_state = nil)
+  attr_reader :matrix
+
+  def initialize(rows = 10, cols = 10, initial_state: nil)
     @rows = rows
     @cols = cols
     @matrix = []
@@ -30,30 +32,44 @@ class Board
     @matrix = Array.new(rows) { Array.new(cols) { Cell.new } }
   end
 
+  def alive_neighbours_count(row, col)
+    count = 0
+    [row - 1, row, row + 1].each do |i|
+      [col - 1, col, col + 1].each do |j|
+        next if i < 0 || i >= @rows 
+        next if j < 0 || j >= @cols
+        next if i == row && j == col # Evitar que cuente el centre de la submatriz de 3x3s
+
+        count += 1 if @matrix[i][j].alive?
+      end
+    end
+    count
+  end
+
+  def [](row, col)
+    @matrix[row][col]
+  end
+
+  def []=(row, col, value)
+    @matrix[row][col] = value
+  end
+
   def print_matrix
     @matrix.each do |row|
       row.each do |cell|
-        if cell.alive?
-          print '*'
-        else
-          print '.'
-        end
+        print cell.to_s
       end
       puts
     end
   end
 
   def snapshot
-    board = Board.new(@rows, @cols)
+    snapshot = Board.new(@rows, @cols)
     @matrix.each_with_index do |row, i|
       row.each_with_index do |cell, j|
-        board.get_matrix[i][j] = cell.copy
+        snapshot[i, j] = cell.copy
       end
     end
-    board
-  end
-
-  def get_matrix
-    @matrix
+    snapshot
   end
 end

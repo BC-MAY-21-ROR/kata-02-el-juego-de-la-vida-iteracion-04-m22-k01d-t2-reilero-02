@@ -9,3 +9,4 @@ gem 'rubycritic'
 gem 'rubycritic-small-badge', :require => false
 gem 'rspec', '~> 3.4'
 gem 'rexml'
+gem 'sandi_meter'

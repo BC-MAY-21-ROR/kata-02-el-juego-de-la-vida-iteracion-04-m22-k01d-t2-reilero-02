@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Cell
-  def initialize
-    @is_alive = false
+  def initialize(is_alive = false)
+    @is_alive = is_alive
   end
 
   def next_state(alive_neighbours)
@@ -49,4 +49,13 @@ class Cell
   def copy
     Cell.new(@is_alive)
   end
+
+  def to_s
+    if alive?
+      '*'
+    else
+      '.'
+    end
+  end
+
 end
