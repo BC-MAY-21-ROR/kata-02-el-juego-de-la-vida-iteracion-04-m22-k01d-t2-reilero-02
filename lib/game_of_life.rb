@@ -1,3 +1,5 @@
+require 'board'
+
 class Game
     #live = "*"
     #dead = "."
@@ -110,31 +112,6 @@ class Game
       count
     end
     
-
-    def print_matrix
-      @matrix.each do |row|
-        row.each do |cell|
-          if cell == true
-            print '*'
-          else
-            print '.'
-          end
-        end
-        puts
-      end
-    end
-
-    def matrix_snapshot
-      snapshot = []
-      @matrix.each_with_index do |row, i|
-        snapshot << []
-        row.each do |cell|
-          snapshot[i] << cell
-        end
-      end
-      snapshot
-    end
-
 end
 
 new_game = Game.new
