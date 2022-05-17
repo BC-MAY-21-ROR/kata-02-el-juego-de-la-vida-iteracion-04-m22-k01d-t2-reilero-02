@@ -1,5 +1,5 @@
 require 'rspec'
-require 'board'
+require './lib/board'
 
 describe Board do
   subject { Board.new }
@@ -33,4 +33,6 @@ describe Board do
    snapshot = board.snapshot
    expect(snapshot).not_to be(board)
   end
+
+  
 end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'colorize'
 
 class Cell
   def initialize(is_alive = false)
@@ -52,9 +53,9 @@ class Cell
 
   def to_s
     if alive?
-      '*'
+      '*'.green
     else
-      '.'
+      '.'.red
     end
   end
 
